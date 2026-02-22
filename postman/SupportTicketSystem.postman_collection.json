@@ -1,0 +1,148 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Support Ticket System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000/api" }
+  ],
+  "item": [
+    {
+      "name": "List Tickets",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/tickets/",
+          "host": ["{{base_url}}"],
+          "path": ["tickets", ""]
+        }
+      }
+    },
+    {
+      "name": "List Tickets - Filter by Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/tickets/?status=open",
+          "host": ["{{base_url}}"],
+          "path": ["tickets", ""],
+          "query": [{ "key": "status", "value": "open" }]
+        }
+      }
+    },
+    {
+      "name": "List Tickets - Filter by Category",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/tickets/?category=technical",
+          "host": ["{{base_url}}"],
+          "path": ["tickets", ""],
+          "query": [{ "key": "category", "value": "technical" }]
+        }
+      }
+    },
+    {
+      "name": "List Tickets - Filter by Priority",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/tickets/?priority=high",
+          "host": ["{{base_url}}"],
+          "path": ["tickets", ""],
+          "query": [{ "key": "priority", "value": "high" }]
+        }
+      }
+    },
+    {
+      "name": "List Tickets - Search",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/tickets/?search=login",
+          "host": ["{{base_url}}"],
+          "path": ["tickets", ""],
+          "query": [{ "key": "search", "value": "login" }]
+        }
+      }
+    },
+    {
+      "name": "Create Ticket",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Cannot login to my account\",\n  \"description\": \"I have been unable to login since yesterday. I keep getting an authentication error.\",\n  \"category\": \"account\",\n  \"priority\": \"high\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/tickets/",
+          "host": ["{{base_url}}"],
+          "path": ["tickets", ""]
+        }
+      }
+    },
+    {
+      "name": "Get Ticket by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/tickets/1/",
+          "host": ["{{base_url}}"],
+          "path": ["tickets", "1", ""]
+        }
+      }
+    },
+    {
+      "name": "Update Ticket Status (PATCH)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"in_progress\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/tickets/1/",
+          "host": ["{{base_url}}"],
+          "path": ["tickets", "1", ""]
+        }
+      }
+    },
+    {
+      "name": "Get Stats",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/tickets/stats/",
+          "host": ["{{base_url}}"],
+          "path": ["tickets", "stats", ""]
+        }
+      }
+    },
+    {
+      "name": "Classify Ticket",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Credit card charge not showing up\",\n  \"description\": \"I was charged $99 on my credit card but I cannot see any invoice in my account.\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/tickets/classify/",
+          "host": ["{{base_url}}"],
+          "path": ["tickets", "classify", ""]
+        }
+      }
+    }
+  ]
+}
