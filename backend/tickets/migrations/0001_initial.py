@@ -40,21 +40,21 @@ class Migration(migrations.Migration):
         migrations.AddConstraint(
             model_name='ticket',
             constraint=models.CheckConstraint(
-                check=models.Q(category__in=['billing', 'technical', 'account', 'general']),
+                condition=models.Q(category__in=['billing', 'technical', 'account', 'general']),
                 name='valid_category'
             ),
         ),
         migrations.AddConstraint(
             model_name='ticket',
             constraint=models.CheckConstraint(
-                check=models.Q(priority__in=['low', 'medium', 'high', 'critical']),
+                condition=models.Q(priority__in=['low', 'medium', 'high', 'critical']),
                 name='valid_priority'
             ),
         ),
         migrations.AddConstraint(
             model_name='ticket',
             constraint=models.CheckConstraint(
-                check=models.Q(status__in=['open', 'in_progress', 'resolved', 'closed']),
+                condition=models.Q(status__in=['open', 'in_progress', 'resolved', 'closed']),
                 name='valid_status'
             ),
         ),

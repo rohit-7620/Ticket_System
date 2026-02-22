@@ -35,15 +35,15 @@ class Ticket(models.Model):
         ordering = ['-created_at']
         constraints = [
             models.CheckConstraint(
-                check=models.Q(category__in=['billing', 'technical', 'account', 'general']),
+                condition=models.Q(category__in=['billing', 'technical', 'account', 'general']),
                 name='valid_category'
             ),
             models.CheckConstraint(
-                check=models.Q(priority__in=['low', 'medium', 'high', 'critical']),
+                condition=models.Q(priority__in=['low', 'medium', 'high', 'critical']),
                 name='valid_priority'
             ),
             models.CheckConstraint(
-                check=models.Q(status__in=['open', 'in_progress', 'resolved', 'closed']),
+                condition=models.Q(status__in=['open', 'in_progress', 'resolved', 'closed']),
                 name='valid_status'
             ),
         ]
