@@ -1,0 +1,186 @@
+{
+  "info": {
+    "name": "Support Ticket System",
+    "_postman_id": "aef5f54c-c87f-45ca-933f-e0eead2aba69",
+    "description": "Assessment endpoint checks for Support Ticket System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "ticketId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Classify",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"My payment was deducted twice and I need a refund.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/classify/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tickets",
+            "classify",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Ticket",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Payment issue\",\n  \"description\": \"My payment was deducted twice and I need a refund.\",\n  \"category\": \"billing\",\n  \"priority\": \"high\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tickets",
+            ""
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Create returns 201', function () { pm.response.to.have.status(201); });",
+              "const data = pm.response.json();",
+              "if (data.id) { pm.collectionVariables.set('ticketId', String(data.id)); }"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "List Tickets",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tickets",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Tickets With Filters",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/?category=billing&priority=high&status=open&search=payment",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tickets",
+            ""
+          ],
+          "query": [
+            {
+              "key": "category",
+              "value": "billing"
+            },
+            {
+              "key": "priority",
+              "value": "high"
+            },
+            {
+              "key": "status",
+              "value": "open"
+            },
+            {
+              "key": "search",
+              "value": "payment"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Patch Ticket Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"in_progress\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/{{ticketId}}/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tickets",
+            "{{ticketId}}",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Stats",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/stats/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tickets",
+            "stats",
+            ""
+          ]
+        }
+      }
+    }
+  ]
+}
